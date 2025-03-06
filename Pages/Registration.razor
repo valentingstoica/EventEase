@@ -1,0 +1,30 @@
+<!-- Registration.razor -->
+@using MyBlazorApp.Models
+@page "/Registration"
+
+<h3>Event Registration</h3>
+<EditForm Model="@User" OnValidSubmit="@HandleValidSubmit">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+    <div>
+        <label>Name:</label>
+        <InputText id="name" @bind-Value="User.Name" />
+        <ValidationMessage For="@(() => User.Name)" />
+    </div>
+    <div>
+        <label>Email:</label>
+        <InputText id="email" @bind-Value="User.Email" />
+        <ValidationMessage For="@(() => User.Email)" />
+    </div>
+    <button type="submit">Register</button>
+</EditForm>
+
+@code {
+    private UserModel User = new();
+
+    private void HandleValidSubmit()
+    {
+        Console.WriteLine($"User {User.Name} with email {User.Email} registered.");
+    }
+}

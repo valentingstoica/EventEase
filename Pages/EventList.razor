@@ -1,0 +1,37 @@
+@using MyBlazorApp.Models
+@page "/EventList"
+
+<h3>Event List</h3>
+<Virtualize Items="@Events" Context="eventItem" ItemSize="50">
+    <ItemContent>
+        <EventCard EventName="eventItem.Name" EventDate="eventItem.Date" EventLocation="eventItem.Location" />
+    </ItemContent>
+</Virtualize>
+
+@code {
+    private List<EventModel>? Events; // Declare as nullable
+
+    protected override void OnInitialized()
+    {
+        Events = GenerateMockEvents();
+    }
+
+    private List<EventModel> GenerateMockEvents()
+    {
+        var events = new List<EventModel>();
+        for (int i = 1; i <= 1000; i++)
+        {
+            events.Add(new EventModel
+            {
+                Name = $"Event {i}",
+                Date = DateTime.Now.AddDays(i),
+                Location = $"Location {i}"
+            });
+        }
+        return events;
+    }
+}
+
+
+
+
